@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, session
 import random
+import os
+import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = "clave-super-secreta"  # Necesaria para manejar sesiones
@@ -27,6 +29,22 @@ def index():
             elif intento > numero:
                 mensaje = "El número es MENOR."
             else:
+                mysql.connector.connect(
+                    host=os.environ.get("nozomi.proxy.rlwy.net"),
+                    port=os.environ.get("51450"),
+                    user=os.environ.get("root"),
+                    password=os.environ.get("AjzweXbzIUGmSEtnbznPQdSBOJcLTbGX"),
+                    database=os.environ.get("railway")
+
+
+                conn = get_connection()
+                cursor = conn.cursor()
+
+                sql = "INSERT INTO usuarios(aciertos, fecha) VALUES (%s, NOW())"
+                cursor.execute(sql, (intento,))
+                conn.commit()
+
+    
                 nombre = request.args.get("nombre", "")
                 mensaje = "¡Adivinaste! "+nombre+" lo lograste en " + str(session["veces"]) + " oportunidades. Se generó un nuevo número."
                 
