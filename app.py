@@ -3,11 +3,6 @@ import random
 import os
 import mysql.connector
 
-print("MYSQLHOST =", os.getenv("MYSQLHOST"))
-print("MYSQLPORT =", os.getenv("MYSQLPORT"))
-print("MYSQLUSER =", os.getenv("MYSQLUSER"))
-print("MYSQLDATABASE =", os.getenv("MYSQLDATABASE"))
-
 def get_connection():
     return mysql.connector.connect(
         host=os.getenv("MYSQLHOST"),
