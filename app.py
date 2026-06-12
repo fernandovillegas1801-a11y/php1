@@ -41,8 +41,8 @@ def index():
                 conn = get_connection()
                 cursor = conn.cursor()
 
-                sql = "INSERT INTO usuarios(aciertos, fecha) VALUES (%s, NOW())"
-                cursor.execute(sql, (intento,))
+                sql = "INSERT INTO usuario(aciertos, fecha) VALUES (%s, NOW())"
+                cursor.execute(sql, (veces_actual,))
                 conn.commit()
 
     
