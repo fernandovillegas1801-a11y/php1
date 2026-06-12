@@ -3,6 +3,15 @@ import random
 import os
 import mysql.connector
 
+def get_connection():
+    return mysql.connector.connect(
+        host=os.getenv("MYSQLHOST"),
+        port=int(os.getenv("MYSQLPORT")),
+        user=os.getenv("MYSQLUSER"),
+        password=os.getenv("MYSQLPASSWORD"),
+        database=os.getenv("MYSQLDATABASE")
+    )
+    
 app = Flask(__name__)
 app.secret_key = "clave-super-secreta"  # Necesaria para manejar sesiones
 
@@ -29,14 +38,6 @@ def index():
             elif intento > numero:
                 mensaje = "El número es MENOR."
             else:
-                mysql.connector.connect(
-                    host=os.environ.get("nozomi.proxy.rlwy.net"),
-                    port=os.environ.get("51450"),
-                    user=os.environ.get("root"),
-                    password=os.environ.get("AjzweXbzIUGmSEtnbznPQdSBOJcLTbGX"),
-                    database=os.environ.get("railway"))
-
-
                 conn = get_connection()
                 cursor = conn.cursor()
 
