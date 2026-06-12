@@ -2,23 +2,18 @@ from flask import Flask, render_template, request, session
 import random
 import os
 import mysql.connector
+from urllib.parse import urlparse
 
 def get_connection():
+    db_url = os.getenv("MYSQL_PUBLIC_URL")  
+    parsed = urlparse(db_url)
     return mysql.connector.connect(
-        host=os.getenv("MYSQLHOST"),
-        port=os.getenv("MYSQLPORT"),
-        user=os.getenv("MYSQLUSER"),
-        password=os.getenv("MYSQLPASSWORD"),
-        database=os.getenv("MYSQLDATABASE")
+        host=parsed.hostname,
+        port=parsed.port,
+        user=parsed.username,
+        password=parsed.password,
+        database=parsed.path.lstrip("/")
     )
-
-print("=== VARIABLES MYSQL ===")
-print("MYSQLHOST =", os.getenv("MYSQLHOST"))
-print("MYSQLPORT =", os.getenv("MYSQLPORT"))
-print("MYSQLUSER =", os.getenv("MYSQLUSER"))
-print("MYSQLPASSWORD =", os.getenv("MYSQLPASSWORD"))
-print("MYSQLDATABASE =", os.getenv("MYSQLDATABASE"))
-print("=======================")
 
 app = Flask(__name__)
 app.secret_key = "clave-super-secreta"  # Necesaria para manejar sesiones
