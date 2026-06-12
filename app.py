@@ -34,7 +34,7 @@ def index():
                     port=os.environ.get("51450"),
                     user=os.environ.get("root"),
                     password=os.environ.get("AjzweXbzIUGmSEtnbznPQdSBOJcLTbGX"),
-                    database=os.environ.get("railway")
+                    database=os.environ.get("railway"))
 
 
                 conn = get_connection()
