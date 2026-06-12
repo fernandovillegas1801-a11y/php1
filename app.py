@@ -42,9 +42,10 @@ def index():
                 cursor = conn.cursor()
 
                 sql = "INSERT INTO usuario(aciertos, fecha) VALUES (%s, NOW())"
-                cursor.execute(sql, (veces_actual,))
+                cursor.execute(sql, (session["veces"],))
                 conn.commit()
-
+                cursor.close()
+                conn.close()
     
                 nombre = request.args.get("nombre", "")
                 mensaje = "¡Adivinaste! "+nombre+" lo lograste en " + str(session["veces"]) + " oportunidades. Se generó un nuevo número."
