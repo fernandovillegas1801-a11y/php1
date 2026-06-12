@@ -11,7 +11,15 @@ def get_connection():
         password=os.getenv("MYSQLPASSWORD"),
         database=os.getenv("MYSQLDATABASE")
     )
-    
+
+print("=== VARIABLES MYSQL ===")
+print("MYSQLHOST =", os.getenv("MYSQLHOST"))
+print("MYSQLPORT =", os.getenv("MYSQLPORT"))
+print("MYSQLUSER =", os.getenv("MYSQLUSER"))
+print("MYSQLPASSWORD =", os.getenv("MYSQLPASSWORD"))
+print("MYSQLDATABASE =", os.getenv("MYSQLDATABASE"))
+print("=======================")
+
 app = Flask(__name__)
 app.secret_key = "clave-super-secreta"  # Necesaria para manejar sesiones
 
