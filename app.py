@@ -5,8 +5,20 @@ import mysql.connector
 from urllib.parse import urlparse
 
 def get_connection():
-    db_url = os.getenv("MYSQL_PUBLIC_URL")  
+    db_url = os.getenv("MYSQL_PUBLIC_URL")
+
+    print("URL:", db_url)
+
+    if not db_url:
+        raise Exception("MYSQL_PUBLIC_URL no existe")
+
     parsed = urlparse(db_url)
+
+    print("HOST:", parsed.hostname)
+    print("PORT:", parsed.port)
+    print("USER:", parsed.username)
+    print("DB:", parsed.path.lstrip("/"))
+
     return mysql.connector.connect(
         host=parsed.hostname,
         port=parsed.port,
