@@ -28,8 +28,8 @@ $fecha = trim($data['fecha_hora'] ?? '');
 
 
 
-$host = getenv('RAILWAY_TCP_PROXY_DOMAIN');
-$port = getenv('RAILWAY_TCP_PROXY_PORT');
+$host = getenv('MYSQLHOST');
+$port = getenv('MYSQLPORT');
 $dbname = getenv('MYSQLDATABASE');
 $user = getenv('MYSQLUSER');
 $password = getenv('MYSQLPASSWORD');
