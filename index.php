@@ -6,7 +6,7 @@ $input = file_get_contents("php://input");
 
 error_log("JSON: " . $input);
 
-if (!$data) {
+if (!$input) {
     http_response_code(400);
     echo json_encode([
         "estado" => "error",
