@@ -1,6 +1,26 @@
 <?php
 
 
+$input = file_get_contents("php://input");
+
+file_put_contents(
+    "request.log",
+    date("Y-m-d H:i:s") . " => " . $input . PHP_EOL,
+    FILE_APPEND
+);
+
+$data = json_decode($input, true);
+
+echo json_encode([
+    "recibido" => $input
+]);
+
+
+?>
+
+
+
+/*
 
 header('Content-Type: application/json');
 
@@ -64,7 +84,7 @@ $stmt->execute([
     die($e->getMessage());
 }
 
-
+*/
 
 
 /*
@@ -152,5 +172,3 @@ try {
     
 }
 */
-
-?>
