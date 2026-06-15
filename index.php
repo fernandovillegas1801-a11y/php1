@@ -4,15 +4,8 @@ header('Content-Type: application/json');
 
 $input = file_get_contents("php://input");
 
-error_log("RAW JSON: " . $input);
+error_log("JSON: " . $input);
 
-$data = json_decode($input, true);
-
-error_log("DATOS DECODIFICADOS: " . print_r($data, true));
-
-echo json_encode([
-    "estado" => "ok"
-]);
 
 
 /*
