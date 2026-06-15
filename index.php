@@ -3,8 +3,8 @@
 
 
 
-$host = getenv('MYSQLHOST');
-$port = getenv('MYSQLPORT');
+$host = getenv('RAILWAY_TCP_PROXY_DOMAIN');
+$port = getenv('RAILWAY_TCP_PROXY_PORT');
 $dbname = getenv('MYSQLDATABASE');
 $user = getenv('MYSQLUSER');
 $password = getenv('MYSQLPASSWORD');
