@@ -1,14 +1,14 @@
 <?php
 
+header('Content-Type: application/json');
+
 $input = file_get_contents("php://input");
 
-$data = json_decode($input, true);
-
-echo "<pre>";
-print_r($data);
-echo "</pre>";
-
-?>
+echo json_encode([
+    "raw" => $input,
+    "json" => json_decode($input, true),
+    "error_json" => json_last_error_msg()
+]);
 
 
 /*
