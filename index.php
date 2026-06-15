@@ -8,10 +8,7 @@ error_log("JSON: " . $input);
 
 if (!$input) {
     http_response_code(400);
-    echo json_encode([
-        "estado" => "error",
-        "mensaje" => "JSON inválido"
-    ]);
+    echo json_encode([ "estado" => "error", "mensaje" => "JSON inválido" ]);
     exit;
 }
 else{
@@ -26,39 +23,22 @@ $dbname = getenv('MYSQLDATABASE');
 $user = getenv('MYSQLUSER');
 $password = getenv('MYSQLPASSWORD');
 
-$nombre = trim($data['nombre'] ?? '');
-$puntaje = intval($data['intentos'] ?? 0);
-$fecha = trim($data['fecha_hora'] ?? '');
+$nombre = trim($input['nombre'] ?? '');
+$puntaje = intval($input['intentos'] ?? 0);
+$fecha = trim($input['fecha_hora'] ?? '');
 
 try {
-    $conn = new PDO(
-        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $password
-    );
+    $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",$user,$password);
 
-    $conn->setAttribute(
-        PDO::ATTR_ERRMODE,
-        PDO::ERRMODE_EXCEPTION
-    );
+    $sql = "INSERT INTO records (nombre, puntaje, fecha) VALUES (?, ?, ?)";
 
-    $sql = "INSERT INTO records
-        (nombre, puntaje, fecha)
-        VALUES (?, ?, ?)";
-
-$stmt = $conn->prepare($sql);
-$stmt->execute([
-    $nombre,
-    $puntaje,
-    $fecha
-]);
-    
-
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([ $nombre, $puntaje, $fecha ]);
 } 
+    
 catch (PDOException $e) {
 
     error_log("Error BD: " . $e->getMessage());
-
     http_response_code(500);
 
     echo json_encode([
@@ -66,7 +46,6 @@ catch (PDOException $e) {
         "mensaje" => $e->getMessage()
     ]);
 }
-
 
 ?>
 
