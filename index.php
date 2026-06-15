@@ -52,7 +52,11 @@ try {
         VALUES (?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param($nombre, puntaje, $fecha);
+$stmt->execute([
+    $nombre,
+    $puntaje,
+    $fecha
+]);
 $stmt->execute();
     
 
