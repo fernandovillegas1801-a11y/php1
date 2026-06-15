@@ -57,7 +57,6 @@ $stmt->execute([
     $puntaje,
     $fecha
 ]);
-$stmt->execute();
     
 
 } catch(PDOException $e) {
