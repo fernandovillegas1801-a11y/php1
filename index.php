@@ -2,6 +2,31 @@
 
 
 
+header('Content-Type: application/json');
+
+// Leer JSON recibido
+$input = file_get_contents("php://input");
+$data = json_decode($input, true);
+
+if (!$data) {
+    http_response_code(400);
+    echo json_encode([
+        "estado" => "error",
+        "mensaje" => "JSON inválido"
+    ]);
+    exit;
+}
+
+$nombre = trim($data['nombre'] ?? '');
+$puntaje = intval($data['intentos'] ?? 0);
+$fecha = trim($data['fecha_hora'] ?? '');
+
+
+
+
+
+
+
 
 $host = getenv('RAILWAY_TCP_PROXY_DOMAIN');
 $port = getenv('RAILWAY_TCP_PROXY_PORT');
@@ -11,28 +36,30 @@ $password = getenv('MYSQLPASSWORD');
 
 try {
 
-    $pdo = new PDO(
+    $conn = new PDO(
         "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
         $user,
         $password
     );
 
-    $pdo->setAttribute(
+    $conn->setAttribute(
         PDO::ATTR_ERRMODE,
         PDO::ERRMODE_EXCEPTION
     );
 
-    echo "Conectado correctamente";
+    $sql = "INSERT INTO records
+        (nombre, puntaje, fecha)
+        VALUES (?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param($nombre, puntaje, $fecha);
+$stmt->execute();
+    
 
 } catch(PDOException $e) {
 
     die($e->getMessage());
 }
-
-
-
-
-
 
 
 
