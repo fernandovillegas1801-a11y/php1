@@ -1,23 +1,28 @@
 <?php
 
+header('Content-Type: application/json');
 
 $input = file_get_contents("php://input");
 
+$log = [
+    "fecha" => date("Y-m-d H:i:s"),
+    "metodo" => $_SERVER['REQUEST_METHOD'] ?? '',
+    "content_type" => $_SERVER['CONTENT_TYPE'] ?? '',
+    "raw_input" => $input,
+    "post" => $_POST,
+    "headers" => getallheaders()
+];
+
 file_put_contents(
     "request.log",
-    date("Y-m-d H:i:s") . " => " . $input . PHP_EOL,
+    json_encode($log, JSON_PRETTY_PRINT) . PHP_EOL . PHP_EOL,
     FILE_APPEND
 );
 
-$data = json_decode($input, true);
-
 echo json_encode([
+    "estado" => "ok",
     "recibido" => $input
 ]);
-
-
-?>
-
 
 
 /*
